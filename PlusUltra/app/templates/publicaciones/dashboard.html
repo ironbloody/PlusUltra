@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p></p>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<p></p>
+request.session['num_visitas']: {{ num_visitas }}
+
+{% endblock %}
+
+{% block others_js %}
+<script>
+$(document).ready(function() {
+    // https://canvasjs.com/jquery-charts/
+    let dataarticulos = {{ dataarticulos|safe }};
+    let options1 = {
+        title: {
+            text: "Mis Artículos por año"
+        },
+        animationEnabled: true,
+        exportEnabled: true,
+        data: [
+            {
+            type: "spline", //change it to line, area, column, pie, etc
+            lineColor:"green",
+            lineDashType: "dash",
+            dataPoints: dataarticulos,
+            xValueFormatString:"Año ####",
+            }
+        ],
+        axisX:{
+            title:"Año",
+            valueFormatString: "####",
+            interval: 1,
+        },
+        axisY:{
+            title:"# Artículos",
+        },
+    };
+    
+    let datarevistas = {{ datarevistas|safe }};
+    let options2 = {
+        title: {
+            text: "Mis Artículos por revista"
+        },
+        animationEnabled: true,
+        exportEnabled: true,
+        data: [
+            {
+            type: "column", 
+            dataPoints: datarevistas
+            }
+        ],
+        axisX:{
+            title:"Revista",
+        },
+        axisY:{
+            title:"# Artículos",
+            interval: 1,
+        },
+    };
+    
+    $("#chartContainer1").CanvasJSChart(options1);
+    $("#chartContainer2").CanvasJSChart(options2);
+});
+</script>
+{% endblock %}

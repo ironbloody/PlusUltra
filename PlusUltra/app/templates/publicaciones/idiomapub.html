@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p></p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Idiomas publicación: <b>{{ publicacion.titulo }}</b></span>
+                        <a class="btn btn-primary btn-sm float-end" href="{{ publicacion.id }}/add/" title="agregar">
+                            <i class="bi bi-plus"></i> Agregar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="table" class="display" style="width:100%">
+                    <thead>
+                        <th>ID</th>
+                        <th>Idioma</th>
+                        <th>Fecha traducción</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                    {% for x in idiomapub %}
+                        <tr>
+                            <td>{{ x.idioma.id }}</td>
+                            <td>{{ x.idioma.nombre }}</td>
+                            <th>{{ x.fecha }}</th>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="{{ publicacion.id }}/update/{{ x.idioma.id }}" title="editar">
+                                <i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-danger btn-sm" id="btn_delete" href="{{ publicacion.id }}/delete/{{ x.idioma.id }}" title="eliminar">
+                                <i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block others_js %}
+<script>
+$(document).ready(function() {
+    //
+    $('#table').DataTable({
+        "columnDefs": [
+            {"targets": 0, "orderable": true, "className": "dt-center", "visible": true},
+            {"targets": 1, "orderable": true, "className": "dt-center dt-body-left"},
+            {"targets": 2, "orderable": true, "className": "dt-center dt-body-left"},
+            {"targets": 3, "orderable": false, "className": "dt-right", "width": "10%"},
+        ],
+    });
+});
+</script>
+{% endblock %}

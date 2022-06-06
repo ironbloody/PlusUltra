@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p></p>
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Eliminar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="{{ idioma.id }}" method="post">
+                    {% csrf_token %}
+                    <label for="nombre" class="form-label">Idioma</label>
+                        <input type="text" class="form-control" 
+                        value='{{ idioma.nombre }}' disabled>
+                    <p></p>
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                    <a href="../../{{ publicacion.id }}" class="btn btn-danger">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

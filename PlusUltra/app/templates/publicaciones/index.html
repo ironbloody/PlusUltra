@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p></p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Mis publicaciones</span>
+                        <a class="btn btn-primary btn-sm float-end" href="add/" title="agregar">
+                            <i class="bi bi-plus"></i> Agregar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="table" class="display" style="width:100%">
+                    <thead>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Fecha</th>
+                        <th>Revista</th>
+                        <th>Autores</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                    {% for x in publicaciones %}
+                        <tr>
+                            <td>{{ x.id }}</td>
+                            <td>{{ x.titulo }}</td>
+                            <td>{{ x.fecha }}</td>
+                            <td>{{ x.revista }}</td>
+                            <td>
+                            {% for autor in x.investigador.all %}  
+                                {{ autor }}
+                            {% endfor %}
+                            </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="update/{{ x.id }}" title="editar">
+                                <i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-info btn-sm" href="idiomas/{{ x.id }}" title="idiomas">
+                                <i class="bi bi-translate"></i></a>
+                                <a class="btn btn-danger btn-sm" id="btn_delete" href="delete/{{ x.id }}" title="eliminar">
+                                <i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block others_js %}
+<script>
+$(document).ready(function() {
+    //
+    $('#table').DataTable({
+        "columnDefs": [
+            {"targets": 0, "orderable": true, "className": "dt-center", "visible": true},
+            {"targets": 1, "orderable": true, "className": "dt-center dt-body-left"},
+            {"targets": 2, "orderable": true, "className": "dt-center dt-body-left"},
+            {"targets": 3, "orderable": true, "className": "dt-center dt-body-left"},
+            {"targets": 4, "orderable": true, "className": "dt-center dt-body-left"},
+            {"targets": 5, "orderable": false, "className": "dt-right", "width": "10%"},
+        ],
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,68 @@
+<!-- static navbar -->
+<head>
+	<link rel="stylesheet" href="/static/app/media/foto.css">
+	<link rel="icon" href="/static/app/media/plusultra.jpg">
+</head>
+<nav class="navbar navbar-expand-sm navbar-ligth bg-ligth" >
+	<div class="container-fluid">
+        
+		<a class="navbar-brand " href="/">
+			<img src="/static/app/media/plusultra.jpg" alt="img" style="max-width: 40px; max-height: 40px"></img> {{ settings.PROJECT_NAME }}</a>
+	</div>
+	
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                {% if user.groups.all.0|stringformat:"s" == "Investigador" %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/app/publicacion/"><i class="bi bi-journal-text"></i> Publicaciones (admin)</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/publicaciones/"><i class="bi bi-journal-text"></i> Mis Publicaciones</a>
+                    </li>
+                    
+                {% elif user.groups.all.0|stringformat:"s" == "Director" %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" 
+                            role="button" data-bs-toggle="dropdown"><i class="bi bi-bar-chart"></i> Reportes</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Investigadores</a></li>
+                            <li><a class="dropdown-item" href="#">Publicaciones</a></li>
+                            <li><a class="dropdown-item" href="#">Revistas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" 
+                            role="button" data-bs-toggle="dropdown"><i class="bi bi-gear"></i> Mantenedores (admin)</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/app/idioma/">Idiomas</a></li>
+                            <li><a class="dropdown-item" href="/admin/app/revista/">Revistas</a></li>
+                        </ul>
+                    </li> 
+                {% endif %} 
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        | <i class="bi bi-person"></i> <b>{{ user.groups.all.0 }} - {{ user }}</b>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout'%}">
+                        <i class="bi bi-box-arrow-right"></i> Salir</a>
+                </li>
+                
+            {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'login'%}?next={{request.path}}"><i class="bi bi-box-arrow-left"></i> Ingresar</a>
+                </li>
+            {% endif %} 
+        </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+<p></p>
+<div class="row justify-content-center">
+    <div class="col-4">
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                El usuario y/o clave son incorrectos, intente de nuevo.
+            </div>
+        {% endif %}
+      
+        {% if next %}
+            {% if user.is_authenticated %}
+                <div class="alert alert-danger">
+                    Esta cuenta no tiene acceso a esta página. 
+                    Para continuar, inicie sesión con una cuenta que tenga acceso.
+                </div>
+            {% endif %}
+        {% endif %}
+      
+        <div class="card">
+            <div class="card-header">
+                Ingrese sus credenciales.
+            </div>
+            <div class="card-body">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                
+                <div class="mb-3 mt-3">
+                    <label for="id_username" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" autofocus autocapitalize="none" 
+                        autocomplete="username" maxlength="150" required id="id_username" 
+                        name="username">
+                </div>
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Clave:</label>
+                    <input type="password" class="form-control" name="password" 
+                        autocomplete="current-password" required id="id_password">
+                </div>
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                Usuarios de prueba
+            </div>
+            <div class="card-body">
+                <p>superuser: Administración total (interfaz admin Django).</p>
+                <ul>
+                    <li>usuario: <b>admin@admin.cl</b> clave: <b>12345678#</b></li>
+                </ul>
+                <p>Investigador: Gestiona sus publicaciones.</p>
+                <ul>
+                    <li>usuario: <b>avaldes@utalca.cl</b> clave: <b>12345678#</b></li>
+                    <li>usuario: <b>fduran@utalca.cl</b> clave: <b>12345678#</b></li>
+                </ul>
+                <p>Director: Ve estadísticas y resportes. No tiene publicaciones. Gestiona Revistas e Idiomas.</p>
+                <ul>
+                    <li>usuario: <b>gnunez@utalca.cl</b> clave: <b>12345678#</b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

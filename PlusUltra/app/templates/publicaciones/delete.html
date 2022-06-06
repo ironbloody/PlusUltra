@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p></p>
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>Eliminar publicación</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="{{ publicacion.id }}" method="post">
+                    {% csrf_token %}
+                    <label for="firstname" class="form-label">Título</label>
+                        <input type="text" class="form-control" 
+                        value='{{ publicacion.titulo }}' disabled>
+                    <p></p>
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                    <a href="../" class="btn btn-danger">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

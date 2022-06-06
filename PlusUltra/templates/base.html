@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ settings.PROJECT_NAME }} - {{ settings.PROJECT_TITLE}} ({{ settings.PROJECT_VERSION }})</title>
+
+        {% include "head_css.html" %}
+        
+        {% block others_css %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <!-- navbar -->
+        {% block navbar %}
+            {% include "navbar.html" %}
+        {% endblock %}
+        
+        <!-- main content -->
+        <main role="main" class="container-fluid">
+
+        {% if messages %}
+            <p></p>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                <strong>{{ message }}</strong><br>
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+
+        </main>
+
+        <!-- footer -->
+        {% block footer %}
+        <p></p>
+        <hr/>
+        <div class="text-center">
+            @{{ settings.PROJECT_NAME }} - {{ settings.PROJECT_TITLE}} ({{ settings.PROJECT_VERSION }})
+        </div>
+        {% endblock %}
+
+        {% include "javascript.html" %}
+
+        {% block others_js %}
+        {% endblock %}
+    </body>
+</html>
