@@ -60,34 +60,6 @@ def add(request):
         return redirect('index')
         
         
-@user_passes_test(es_investigador)
-def add(request):
-    if (request.method == 'GET'):
-        form = PublicacionForm()
-        # muesta usarios de esos grupos.
-        form.fields['investigador'].queryset = Usuario.objects.filter(groups__name__in=['Investigador', 'Director'])
-        #queryset = Usuario.objects.filter(groups__name__in=['Investigador', 'Director'])
-        
-        # mostrar formulario.
-        template = loader.get_template('genero/add.html')
-    
-        context = {
-            'settings': settings,
-            'form': form,
-            'isadd': True,
-        }
-    
-        return HttpResponse(template.render(context, request))
-    
-    elif (request.method == 'POST'):
-        # guardar datos.
-        form = GeneroForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Ingreso realizado.")
-
-        return redirect('index')
-
 
 @user_passes_test(es_investigador)
 def delete(request, id):
@@ -138,6 +110,8 @@ def update(request, id):
             messages.success(request, "Actualización realizada.")
 
         return redirect('index')
+
+
 
 """
 Idiomas Publicación.

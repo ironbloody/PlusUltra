@@ -1,9 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-### https://learndjango.com/tutorials/django-custom-user-model
-# modelo User personalizado.
-
 class Usuario(AbstractUser):
     # atributos adicionales.
     email = models.EmailField('email address', unique = True)
@@ -13,8 +10,12 @@ class Usuario(AbstractUser):
     def __str__(self):
         return self.first_name + ' ' + self.last_name
 
+
 class Genero(models.Model):
 	nombre = models.CharField(max_length=255)
+	
+	def __str__(self):
+        	return self.nombre
 
 class Articulo(models.Model):
 	nombre = models.CharField(max_length=255)

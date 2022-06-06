@@ -2,8 +2,14 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import UsuarioCreationForm, UsuarioChangeForm
-from .models import Usuario, Revista, Publicacion, Idioma, IdiomaPublicacion, Genero
+from .models import Usuario, Revista, Publicacion, Idioma, IdiomaPublicacion, Genero, Articulo
 #
+class UsuarioAdmin(UserAdmin):
+    add_form = UsuarioCreationForm
+    form = UsuarioChangeForm
+    model = Usuario
+    list_display = ["email", "username", "first_name", "last_name"]
+    
 class UsuarioAdmin(UserAdmin):
     add_form = UsuarioCreationForm
     form = UsuarioChangeForm
@@ -22,13 +28,12 @@ class IdiomaPublicacionAdmin(admin.ModelAdmin):
     list_filter = ('idioma', 'fecha')
 
 #
-#admin.site.register(Usuario, UsuarioAdmin)
-#admin.site.register(Publicacion, PublicacionAdmin)
-#admin.site.register(IdiomaPublicacion, IdiomaPublicacionAdmin)
+admin.site.register(Usuario, UsuarioAdmin)
+admin.site.register(Publicacion, PublicacionAdmin)
+admin.site.register(IdiomaPublicacion, IdiomaPublicacionAdmin)
 
-#
-#admin.site.register(Publicacion)
+
+
 admin.site.register(Genero)
-admin.site.register(Revista)
-admin.site.register(Idioma)
-#admin.site.register(IdiomaPublicacion)
+admin.site.register(Articulo)
+
