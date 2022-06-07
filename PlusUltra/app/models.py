@@ -1,19 +1,26 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class CiudadManager(models.Manager):
+	def create_ciudad(self, nombre):
+		ciudad = self.create(nombre=nombre)
+		return ciudad
+	
 class Ciudad(models.Model):
 	nombre = models.CharField(max_length=255)
-
-	def __str__(self):
-        	return self.nombre
+	
+	objects = CiudadManager()
+	
+        	
+ciudad = Ciudad.objects.create_ciudad("Talca")
 
 class Usuario(AbstractUser):
     # atributos adicionales.
-    Email = models.EmailField('Email address', unique = True)
-    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
-    USERNAME_FIELD = 'Email'
-    REQUIRED_FIELDS = ['Nombre', 'Apellido', 'RUT',]
-   
+    email = models.EmailField('email address', unique = True)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=1)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'ciudad']
+
 
 class Revista(models.Model):
     nombre = models.CharField(max_length=255)
@@ -51,7 +58,12 @@ class IdiomaPublicacion(models.Model):
     def __str__(self):
         return self.publicacion.titulo + ' - ' + self.idioma.nombre
         
-#PLUSULTRAAAAAAAAA------------------------------------------
+#PLUSULTRAAAAAAAAA--------------------------------------
+
+
+
+    
+    
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
@@ -63,7 +75,7 @@ class Genero(models.Model):
         	return self.nombre
 
 class Editorial(models.Model):
-	nombre = models.CharField(max_length=255, default="some string")
+	nombre = models.CharField(max_length=255)
 
 	def __str__(self):
         	return self.nombre

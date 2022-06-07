@@ -225,3 +225,4 @@ def updateidiomapub(request, id, id_idi):
             messages.info(request, msg)
 
         return redirect('idiomapub', id)
+        
