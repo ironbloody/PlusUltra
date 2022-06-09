@@ -12,5 +12,6 @@ urlpatterns = [
     path('genero/<int:id>/add/', views.addidiomapub, name='addidiomapub'),
     path('idiomas/<int:id>/delete/<int:id_idi>', views.deleteidiomapub, name='deleteidiomapub'),
     path('idiomas/<int:id>/update/<int:id_idi>', views.updateidiomapub, name='updateidiomapub'),
+    path("register", views.register_request, name="register")
 
 ]
